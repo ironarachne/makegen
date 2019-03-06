@@ -8,8 +8,9 @@ import (
 
 // Generator is a generator
 type Generator struct {
-	Name string
-	Port int
+	Object string
+	Name   string
+	Port   int
 }
 
 func (gen Generator) createDirectories() {
@@ -22,10 +23,10 @@ func (gen Generator) createDirectories() {
 }
 
 func (gen Generator) createFiles() {
-	gen.renderToFile(gen.Name+"/cmd/"+gen.Name+"/Dockerfile", dockerFileTemplate)
+	gen.renderToFile(gen.Name+"/cmd/"+gen.Name+"d/Dockerfile", dockerFileTemplate)
 	gen.renderToFile(gen.Name+"/.circleci/config.yml", circleFileTemplate)
 	gen.renderToFile(gen.Name+"/build.sh", buildFileTemplate)
-	gen.renderToFile(gen.Name+"/cmd/"+gen.Name+"/main.go", mainFileTemplate)
+	gen.renderToFile(gen.Name+"/cmd/"+gen.Name+"d/main.go", mainFileTemplate)
 	gen.renderToFile(gen.Name+"/"+gen.Name+".go", programFileTemplate)
 	gen.renderToFile(gen.Name+"/README.md", readmeFileTemplate)
 	gen.renderToFile(gen.Name+"/.gitignore", gitignoreFileTemplate)
@@ -52,12 +53,14 @@ func touch(fileName string) {
 }
 
 func main() {
-	var genName = flag.String("n", "", "The name of the generator")
+	var object = flag.String("o", "", "The object that the generator builds")
 	var port = flag.Int("p", 0, "The port for the generator's API")
 
 	flag.Parse()
 
-	generator := Generator{*genName, *port}
+	name := *object + "gen"
+
+	generator := Generator{*object, name, *port}
 
 	generator.createDirectories()
 	generator.createFiles()
