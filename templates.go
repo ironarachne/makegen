@@ -20,7 +20,7 @@ jobs:
 			- setup_remote_docker:
 					docker_layer_caching: true
 			- run: |
-					cd cmd/{{.Name}}
+					cd cmd/{{.Name}}d
 					TAG=0.1.$CIRCLE_BUILD_NUM
 					docker build -t ironarachne/{{.Name}}d:$TAG -t ironarachne/{{.Name}}d:latest .
 					docker login -u $DOCKER_USER -p $DOCKER_PASS
