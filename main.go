@@ -14,7 +14,7 @@ type Generator struct {
 }
 
 func (gen Generator) createDirectories() {
-	err := os.MkdirAll(gen.Name+"/cmd/"+gen.Name, 0755)
+	err := os.MkdirAll(gen.Name+"/cmd/"+gen.Name+"d", 0755)
 	if err != nil {
 		panic(err)
 	}
