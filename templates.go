@@ -2,7 +2,7 @@ package main
 
 var (
 	buildFileTemplate = `#!/bin/bash
-go build -o build/{{.Name}} cmd/{{.Name}}d/main.go`
+go build -o build/{{.Name}}d cmd/{{.Name}}d/main.go`
 
 	circleFileTemplate = `# Golang CircleCI 2.0 configuration file
 #
