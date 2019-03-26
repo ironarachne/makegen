@@ -3,14 +3,17 @@ package main
 import (
 	"flag"
 	"os"
+	"strings"
 	"text/template"
 )
 
 // Generator is a generator
 type Generator struct {
-	Object string
-	Name   string
-	Port   int
+	Name         string
+	Object       string
+	Port         int
+	TitleObject  string
+	Organization string
 }
 
 func (gen Generator) createDirectories() {
@@ -55,12 +58,14 @@ func touch(fileName string) {
 func main() {
 	var object = flag.String("o", "", "The object that the generator builds")
 	var port = flag.Int("p", 0, "The port for the generator's API")
+	var organization = flag.String("g", "ironarachne", "The GitHub organization that owns this project")
 
 	flag.Parse()
 
 	name := *object + "gen"
+	titleObject := strings.Title(*object)
 
-	generator := Generator{*object, name, *port}
+	generator := Generator{name, *object, *port, titleObject, *organization}
 
 	generator.createDirectories()
 	generator.createFiles()
